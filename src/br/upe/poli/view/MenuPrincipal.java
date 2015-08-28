@@ -29,7 +29,7 @@ public class MenuPrincipal {
 			
 			if (isLoginValidated(login, pass)) {
 				
-				exibeMenuInicial();
+//				exibeMenuInicial();
 			}else{
 				
 				System.out.println("Login incorreto");
@@ -45,17 +45,18 @@ public class MenuPrincipal {
 		
 		BufferedReader fileBuffer = null;
 		boolean isLoginValid = false; 
-		
+		String loginFile;
+		String passFile;
 			
 			fileBuffer = new BufferedReader(new FileReader(new File(Constants.URL_REPOSITORY)));
 			
 			while (fileBuffer.ready()) {
 				
-				isLoginValid = login.equalsIgnoreCase(fileBuffer.readLine().substring(0, login.length()));
+				loginFile = fileBuffer.readLine();
+				passFile = fileBuffer.readLine();
 				
-				if (isLoginValid) {
+				if (loginFile.contains(login) && passFile.contains(pass)) {
 					
-					isLoginValid = pass.equalsIgnoreCase(fileBuffer.readLine().substring(login.length()));
 				}
 			}
 			
