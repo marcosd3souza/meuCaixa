@@ -1,0 +1,9 @@
+{id: 1; nome: teste; dia: 01; mes: 10; ano: 2016; tipo: aluguel; valor: 10; total_parcelas: 5; periodo: mensal}
+{id: 5; nome: teste1; dia: 05; mes: 04; ano: 2019; tipo: aluguel; valor: 14; total_parcelas: 12; periodo: semestral}
+{id: 6; nome: teste2; dia: 05; mes: 04; ano: 2020; tipo: aluguel; valor: 15; total_parcelas: 12; periodo: trimestral}
+{id: 7; nome: teste3; dia: 05; mes: 04; ano: 2021; tipo: aluguel; valor: 16; total_parcelas: 12; periodo: semestral}
+{id: 8; nome: teste4; dia: 05; mes: 04; ano: 2022; tipo: aluguel; valor: 17; total_parcelas: 12; periodo: anual}
+{id: 9; nome: teste5; dia: 05; mes: 04; ano: 2023; tipo: aluguel; valor: 18; total_parcelas: 12; periodo: diaria}
+{id: 10; nome: teste6; dia: 05; mes: 04; ano: 2024; tipo: aluguel; valor: 19; total_parcelas: 12; periodo: semanal}
+{id: 11; nome: teste7; dia: 05; mes: 04; ano: 2025; tipo: aluguel; valor: 20; total_parcelas: 12; periodo: trimestral}
+{id: 12; nome: teste8; dia: 05; mes: 04; ano: 2026; tipo: aluguel; valor: 21; total_parcelas: 12; periodo: anual}
