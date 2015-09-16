@@ -2,17 +2,49 @@ package br.upe.poli.control;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import br.upe.poli.commons.Constants.PERIODO;
 import br.upe.poli.commons.Constants.TIPO_DESPESA;
 import br.upe.poli.model.Despesa;
 import br.upe.poli.util.DespesaRepositoryUtil;
+import br.upe.poli.util.Util;
 
 public class DespesaController {
 
+	private static String SIM = "S";
+
 	public void criarDespesa(Despesa despesa) {
-		// TODO
+
+		try {
+
+			if (!existeDespesa(despesa.getNome())) {
+
+				despesa.setId(Util.getNextID(DespesaRepositoryUtil.DESPESA_REPOSITORY, DespesaRepositoryUtil.REGEX_DESPESA_ID));
+				DespesaRepositoryUtil.createDespesa(despesa);
+
+			}else{
+
+				System.out.println("\nAtenção já existe despesa cadastrada com o nome: "+despesa.getNome());
+				System.out.println("\nDeseja cadastrar mesmo assim ?");
+				System.out.println("\nS - Sim\nN - Não");
+				
+				if (new Scanner(System.in).next().equalsIgnoreCase(SIM)) {
+					
+					despesa.setId(Util.getNextID(DespesaRepositoryUtil.DESPESA_REPOSITORY, DespesaRepositoryUtil.REGEX_DESPESA_ID));
+					DespesaRepositoryUtil.createDespesa(despesa);
+				}
+			}
+
+		} catch (IOException e) {
+			System.out.println("Atenção: Houve um problema ao cadastrar a despesa.");
+		}
+
+	}
+
+	private boolean existeDespesa(String nome) throws IOException {
+		return DespesaRepositoryUtil.getDespesas().stream().anyMatch(f -> f.getNome().equalsIgnoreCase(nome));
 	}
 
 	public List<Despesa> pesquisaPorPeriodo(PERIODO periodo) {
@@ -20,7 +52,7 @@ public class DespesaController {
 		List<Despesa> despesas = null;
 		try {
 			
-			despesas = DespesaRepositoryUtil.getDespesas().stream().filter(f -> f.getPeriod().equals(periodo)).collect(Collectors.toList());
+			despesas = DespesaRepositoryUtil.getDespesas().stream().filter(f -> f.getPeriodo().equals(periodo)).collect(Collectors.toList());
 			
 			if (despesas == null || despesas.size()<= 0) {
 			

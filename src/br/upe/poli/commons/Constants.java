@@ -2,9 +2,6 @@ package br.upe.poli.commons;
 
 import java.util.regex.Pattern;
 
-import br.upe.poli.commons.Constants.PERIODO;
-import br.upe.poli.commons.Constants.TIPO_DESPESA;
-
 public class Constants {
 	
 	public enum PERIODO {
@@ -67,7 +64,7 @@ public class Constants {
 		}
 	}
 	
-	public static final String URL_LOGIN_REPOSITORY = "C:\\Users\\Marcos\\Desktop\\POLI-UPE\\LPOO\\Projeto\\MeuCaixa\\Files\\Repository.txt";
+	public static final String URL_LOGIN_REPOSITORY = System.getProperty("user.dir") + "\\Files\\Repository.txt";
 	public static final Pattern REGEX_LOGIN = Pattern.compile("[login: ]+(\\w|\\d)+\n[senha: ]+(\\w|\\d)+", Pattern.MULTILINE | Pattern.DOTALL);
 	public static final Pattern REGEX_CREDENTIALS = Pattern.compile("[^login: ](\\w|\\d)+[^senha: ]+");
 }

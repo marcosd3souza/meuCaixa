@@ -94,13 +94,13 @@ public class DespesaView{
 
 	private static void exibeMenuDespesaPorTipo() {
 		System.out.println("\n1 - saque");
-		System.out.println("\n2 - conta_energia");
+		System.out.println("\n2 - conta de energia");
 		System.out.println("\n3 - conta_agua");
-		System.out.println("\n4 - conta_telefone_internet");
+		System.out.println("\n4 - conta de telefone/internet");
 		System.out.println("\n5 - condominio");
 		System.out.println("\n6 - aluguel");
-		System.out.println("\n7 - prest_carro");
-		System.out.println("\n8 - prest_imovel");
+		System.out.println("\n7 - prestacao do carro");
+		System.out.println("\n8 - prestacao do imovel");
 		System.out.println("\n9 - imposto");
 		System.out.println("\n10 - faculdade");
 		System.out.println("\n11 - alimentacao");

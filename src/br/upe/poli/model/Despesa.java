@@ -3,7 +3,6 @@ package br.upe.poli.model;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import br.upe.poli.commons.Constants;
 import br.upe.poli.commons.Constants.TIPO_DESPESA;
@@ -114,7 +113,7 @@ public class Despesa {
 	public void setTotalParcela(int totalParcela) {
 		this.totalParcela = totalParcela;
 	}
-	public Constants.PERIODO getPeriod() {
+	public Constants.PERIODO getPeriodo() {
 		return period;
 	}
 	public void setPeriod(Constants.PERIODO period) {
@@ -141,7 +140,7 @@ public class Despesa {
 		
 		if (mat.find()) {
 			
-			retorno =  id == Integer.parseInt(mat.group().toString().replaceFirst("id: ", "").trim()); 
+			retorno = id == Integer.parseInt(mat.group().replaceFirst("id: ", "").trim());
 		}
 		
 		return retorno;

@@ -13,13 +13,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.upe.poli.commons.Constants;
 import br.upe.poli.model.Despesa;
 
 public class DespesaRepositoryUtil {
 
-	private static final String DESPESA_REPOSITORY = "C:\\Users\\Marcos\\Desktop\\POLI-UPE\\LPOO\\Projeto\\MeuCaixa\\Files\\DespesaRepository.txt";
-	private static final Pattern REGEX_DESPESA = Pattern.compile("\\{(\\w|\\d|\\:|\\;|\\s)+\\}", Pattern.MULTILINE | Pattern.DOTALL);
+	public static final String DESPESA_REPOSITORY = System.getProperty("user.dir") + "\\Files\\DespesaRepository.txt";
+	private static final Pattern REGEX_DESPESA = Pattern.compile("\\{(\\w|\\d|\\:|\\;|\\s|\\.)+\\}", Pattern.MULTILINE | Pattern.DOTALL);
 
 	public static final Pattern REGEX_DESPESA_ID = Pattern.compile("id: (\\d)+");
 	private static final Pattern REGEX_DESPESA_NOME = Pattern.compile("nome: (\\w|\\d|\\s)+");
@@ -27,26 +26,30 @@ public class DespesaRepositoryUtil {
 	private static final Pattern REGEX_DESPESA_MES = Pattern.compile("mes: (\\d)+");
 	private static final Pattern REGEX_DESPESA_ANO = Pattern.compile("ano: (\\d)+");
 	private static final Pattern REGEX_DESPESA_TIPO = Pattern.compile("tipo: (\\w)+");
-	private static final Pattern REGEX_DESPESA_VALOR = Pattern.compile("valor: (\\d)+");
+	private static final Pattern REGEX_DESPESA_VALOR = Pattern.compile("valor: (\\d|\\.)+");
 	private static final Pattern REGEX_DESPESA_TOTAL_PARCELAS = Pattern.compile("total_parcelas: (\\d)+");
 	private static final Pattern REGEX_DESPESA_PERIODO = Pattern.compile("periodo: (\\w)+");
 
 	public static void removeFromFile(Despesa despesa) throws IOException {
+
 		String file = new String(Files.readAllBytes(Paths.get(DESPESA_REPOSITORY)), StandardCharsets.UTF_8);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(DESPESA_REPOSITORY)));
-		Matcher match = REGEX_DESPESA.matcher(file);
-		String despesaMatched;
 
-		while (match.find()) {
-			despesaMatched = match.group();
+			Matcher match = REGEX_DESPESA.matcher(file);
+			String despesaMatched;
 
-			if (!despesa.equals(despesaMatched)) {
+			while (match.find()) {
+				despesaMatched = match.group();
 
-				writer.append(despesaMatched+"\n");
+				if (!despesa.equals(despesaMatched)) {
+
+					writer.append(despesaMatched + "\n");
+				}
 			}
-		}
 
-		writer.close();
+			writer.flush();
+			writer.close();
+
 	}
 
 	public static List<Despesa> getDespesas() throws IOException{
@@ -101,6 +104,31 @@ public class DespesaRepositoryUtil {
 		retorno.put("periodo", matchPeriodo.find() ? matchPeriodo.group() : null );
 
 		return retorno;
+
+	}
+
+	public static void createDespesa(Despesa despesa) throws IOException {
+		
+		String file = new String(Files.readAllBytes(Paths.get(DESPESA_REPOSITORY)), StandardCharsets.UTF_8);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(DESPESA_REPOSITORY)));
+
+			StringBuilder builder = new StringBuilder();
+			
+			builder.append(file).append("\n")
+			.append("{id: "+ despesa.getId()+"; ")
+			.append("nome: "+despesa.getNome()+"; ")
+			.append("dia: "+despesa.getDia()+"; ")
+			.append("mes: "+despesa.getMes()+"; ")
+			.append("ano: "+despesa.getAno()+"; ")
+			.append("tipo: "+despesa.getTipo()+"; ")
+			.append("valor: "+despesa.getValor()+"; ")
+			.append("total_parcelas: "+despesa.getTotalParcela()+"; ")
+			.append("periodo: " + despesa.getPeriodo() + "}");
+			
+			writer.append(builder.toString());
+			
+			writer.flush();
+			writer.close();
 
 	}
 

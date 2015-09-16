@@ -1,31 +1,16 @@
 package br.upe.poli.util;
 
-import java.io.BufferedWriter;
-import java.io.Console;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.ConsoleHandler;
-
-import br.upe.poli.commons.Constants;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Util {
-	
-	private static File file = new File(Constants.URL_LOGIN_REPOSITORY);
-	private static BufferedWriter writer = null;
-	
-	public static BufferedWriter getWriterInstance() throws IOException{
-		
-		if (writer == null) {
-			
-			writer = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
-			return writer;
-		}else{
-			
-			return writer;
-		}
-		
-	}
 	
 	public static void exibeMenuDespesaPorPeriodo(){
 		
@@ -54,6 +39,38 @@ public class Util {
 			System.out.println("\n7 - não se aplica");
 		}
 		
+	}
+
+	public static int getNextID(String repositorio, Pattern regex) throws IOException {
+		
+		Matcher match;
+		int id = 0, current = 0;
+
+		for (String line : Files.lines(Paths.get(repositorio)).collect(Collectors.toList())) {
+			match = regex.matcher(line);
+
+			if (match.find()) {
+
+				current = Integer.parseInt(match.group().replace("id: ", "").trim());
+				id = current > id ? current : id;
+			}
+		}
+		
+		return ++id;
+	}
+
+	public static Date converteParaData(String date) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+		try {
+			
+			return dateFormat.parse(date);
+		} catch (ParseException e) {
+			
+			System.out.println("Data informada inválida!");
+		}
+		
+		return null;
 	}
 	
 }
